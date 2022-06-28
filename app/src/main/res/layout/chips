@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.ClubsFragment">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.mobilekosmos.android.clubs.ui.model.ClubsViewModel" />
+    </data>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ProgressBar
+                android:id="@+id/loading_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:isNetworkError="@{safeUnbox(viewModel.eventNetworkError)}"
+                app:clubsList="@{viewModel.clubs}"
+                android:layout_gravity="center" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+            <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group_crypto_currency_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true"
+                    app:selectionRequired="true"
+                    app:checkedChip="@+id/chip_sort_by_name"
+                    app:singleLine="true">
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_sort_by_name"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sort_by_name_ascending" />
+
+                <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_sort_by_value"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sort_by_value_descending" />
+            </com.google.android.material.chip.ChipGroup>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/li_club" />
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>
